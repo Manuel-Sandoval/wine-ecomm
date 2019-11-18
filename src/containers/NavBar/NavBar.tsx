@@ -7,6 +7,8 @@ import CartIcon from '@material-ui/icons/ShoppingCart';
 import IState from './IState';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
+import './NavBar.scss';
+
 class NavBar extends Component<{}, IState> {
 
     constructor(props: {}) {
