@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid, { GridProps } from '@material-ui/core/Grid';
 
-const Item: FC = (props) => <Grid item={true} {...props}/>;
+const Item: FC<GridProps> = (props: GridProps) => <Grid item={true} {...props}/>;
 
 export default Item;

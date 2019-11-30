@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 
-import { Drawer, List, ListItem, IconButton, ListItemIcon, Typography } from '@material-ui/core';
+import { Drawer, List, ListItem, IconButton, ListItemIcon, Typography, Divider } from '@material-ui/core';
 import AboutIcon from '@material-ui/icons/Business';
 import WishIcon from '@material-ui/icons/Star';
 import HomeIcon from '@material-ui/icons/Home';
+import BrandIcon from '@material-ui/icons/Deck';
 import CloseIcon from '@material-ui/icons/Close';
 import ShopIcon from '@material-ui/icons/Queue';
 
@@ -13,6 +14,7 @@ const drawerList = [
     {icon: <HomeIcon/>, text: 'Home'},
     {icon: <AboutIcon/>, text: 'About'},
     {icon: <ShopIcon/>, text: 'Shop'},
+    {icon: <BrandIcon/>, text: 'Brands'},
     {icon: <WishIcon/>, text: 'Customize'}
 ];
 
@@ -26,6 +28,7 @@ const SideDrawer: FC<IProps> = (props) => {
                             <CloseIcon />
                         </IconButton>
                     </ListItem>
+                    <Divider/>
                     {
                         drawerList.map((content, index) => {
                             return (

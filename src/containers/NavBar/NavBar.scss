@@ -1,15 +1,10 @@
-$biking-red: rgb(94, 25, 35);
-$eclipse: #343148;
-
 .nav-bar{
     flex-flow: 1;
-    background-image: linear-gradient(to bottom right, $biking-red, $eclipse);  
+    background-color: white;  
+    color: #333;
 }
 
 .title {
     flex:1;
     text-align: center;
-}
-.icon {
-    color: inherit;
 }

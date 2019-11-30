@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import { AppBar, Toolbar,  Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import CartIcon from '@material-ui/icons/ShoppingCart';
-
+import CartButton from '../../components/CartButton/CartButton';
+import SignButton from '../../components/SignButton/SignButton';
 import IState from './IState';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
@@ -28,9 +28,8 @@ class NavBar extends Component<{}, IState> {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant='h6' className='title'>Wine Store</Typography>
-                        <IconButton className='icon'>
-                            <CartIcon />
-                        </IconButton>
+                        <SignButton />
+                        <CartButton />
                     </Toolbar>
                 </AppBar>
                 <SideDrawer open={this.state.open} close={this.closeDrawerHandler}/>

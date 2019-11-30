@@ -1,0 +1,28 @@
+.app-bar {
+    background-color: white;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+}
+
+.link {
+    padding-left: 25px;
+    padding-right: 25px;
+    color: #555;
+    font-weight: 400;
+    font-size: 14px;
+    text-transform: uppercase;    
+}
+
+.active {
+    color: rgb(128, 0, 51);
+}
+
+.link:hover {
+    text-decoration: none;
+}
