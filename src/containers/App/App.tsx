@@ -6,7 +6,7 @@ import Scrollspy from 'react-scrollspy'
 import NavBar from '../NavBar/NavBar';
 import Header from '../../components/Header/Header';
 import Layout from '../../components/Layout/Layout';
-
+import {BrowserRouter as Router} from 'react-router-dom';
 import './App.scss';
 
 class App extends Component {
@@ -16,17 +16,18 @@ class App extends Component {
 			<div onScrollCapture={this.headerHandler}>
 				<CssBaseline/>
 				<StylesProvider injectFirst={true}>
-					
-					<div id='header'>
-						<Header />
-					</div>
-
-					<Scrollspy items={ ['header'] } currentClassName='hidden' scrolledPastClassName='display'>
-						<div>
-							<NavBar />
+					<Router>
+						<div id='header'>
+							<Header />
 						</div>
-					</Scrollspy>	
-					<Layout />
+
+						<Scrollspy items={ ['header'] } currentClassName='hidden' scrolledPastClassName='display'>
+							<div>
+								<NavBar />
+							</div>
+						</Scrollspy>	
+						<Layout />
+					</Router>
 				</StylesProvider>
 			</div>
 		);

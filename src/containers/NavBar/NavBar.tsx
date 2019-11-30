@@ -29,7 +29,7 @@ class NavBar extends Component<{}, IState> {
                         </IconButton>
                         <Typography variant='h6' className='title'>Wine Store</Typography>
                         <SignButton />
-                        <CartButton />
+                        <CartButton to='/cart'/>
                     </Toolbar>
                 </AppBar>
                 <SideDrawer open={this.state.open} close={this.closeDrawerHandler}/>

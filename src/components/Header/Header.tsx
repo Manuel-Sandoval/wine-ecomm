@@ -1,32 +1,40 @@
 import React, {SFC} from 'react';
-import {AppBar, Link} from '@material-ui/core'
+import {AppBar} from '@material-ui/core'
 import { logo } from '../../assets/images'
 import SignButton from '../SignButton/SignButton';
 import CartButton from '../CartButton/CartButton';
 import './Header.scss'
+import {NavLink, Link} from 'react-router-dom';
 import Container from '../../ui/Container/Container';
 import Item from '../../ui/Item/Item';
 
+const links = [
+    {ref:'/about', text:'About'},
+    {ref:'/shop', text:'Shop'},
+    {ref:'/brands', text:'Brands'},
+    {ref:'/customize', text:'Customize'}
+];
+
 const Header : SFC = () => {
+
     return (
         <AppBar className='app-bar' position='static'>
             <Container>
                 <Item xs={11}>
                     <div className='logo-container'>
-                        <img src={logo.src} alt={logo.title}/>
+                        <Link to='/'><img src={logo.src} alt={logo.title}/></Link>
                     </div>
                 </Item>
                 <Item xs={1}>
                     <SignButton />
                 </Item>
                 <Item xs={11} className='links'>
-                    <Link href='#' className='link active'>About</Link>
-                    <Link href='#' className='link'>Shop</Link>
-                    <Link href='#' className='link'>Brands</Link>
-                    <Link href='#' className='link'>Customize</Link>                    
+                    {links.map((v,i) => {
+                        return <NavLink key={i} to={v.ref} className='link' activeClassName='active'>{v.text}</NavLink>
+                    })}             
                 </Item>
                 <Item xs={1}>
-                    <CartButton />
+                    <CartButton to='/cart'/>
                 </Item>
             </Container>
         </AppBar>
