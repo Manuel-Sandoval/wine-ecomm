@@ -1,0 +1,38 @@
+@import '../../styles/Colors.scss';
+
+.TitleContainer {
+    padding: 20px 0;
+    background-color: $wine-color;
+    text-align: center;
+    color: $white;
+}
+
+.ImageItem {
+    display: flex;
+    justify-content: center;
+}
+
+.ImageContainer {
+    max-width: 400px;
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.ProductInfo {
+    margin-top: 100px;
+}
+
+.Description {
+    font-size: 20px;
+}
+
+.Title {
+    color: $wine-color;
+}
+
+.AddToCart {
+    
+    
+}

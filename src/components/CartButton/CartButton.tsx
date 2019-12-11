@@ -11,7 +11,6 @@ const CartButton : SFC<IProps> = (props) => {
     return (
         <Link to={props.to}>
             <IconButton className='icon-default'>
-                
                 <CartIcon/>
             </IconButton>
         </Link>

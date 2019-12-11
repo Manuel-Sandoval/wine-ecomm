@@ -1,0 +1,21 @@
+@import "../../styles/Colors.scss";
+@import "../../styles/Layout.scss";
+
+@mixin presentation {
+    text-align: center;
+}
+
+.product-header {
+    @include presentation;
+    color: $wine-color;
+}
+
+.product-text {
+    @include presentation;
+}
+
+.product-link {
+    @include presentation;
+    color: $wine-color;
+    text-decoration: none;
+}

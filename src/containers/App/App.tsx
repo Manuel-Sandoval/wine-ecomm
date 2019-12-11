@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {CssBaseline} from '@material-ui/core'
-import {StylesProvider} from '@material-ui/core/styles'
+import {StylesProvider} from '@material-ui/styles'
 import Scrollspy from 'react-scrollspy'
 import NavBar from '../NavBar/NavBar';
 import Header from '../../components/Header/Header';
@@ -14,8 +14,8 @@ class App extends Component {
 	public render(): JSX.Element {
 		return (
 			<div onScrollCapture={this.headerHandler}>
-				<CssBaseline/>
 				<StylesProvider injectFirst={true}>
+					<CssBaseline/>
 					<Router>
 						<div id='header'>
 							<Header />

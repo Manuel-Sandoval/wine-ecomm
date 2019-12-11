@@ -9,10 +9,8 @@ import Container from '../../ui/Container/Container';
 import Item from '../../ui/Item/Item';
 
 const links = [
-    {ref:'/about', text:'About'},
     {ref:'/shop', text:'Shop'},
-    {ref:'/brands', text:'Brands'},
-    {ref:'/customize', text:'Customize'}
+    {ref:'/brands', text:'Brands'}
 ];
 
 const Header : SFC = () => {

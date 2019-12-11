@@ -1,0 +1,31 @@
+@import '../../../styles/Colors.scss';
+
+.container {
+    border: 1px solid black;
+}
+
+.avatar {
+    margin-top: 10px;
+    border-radius: 50%;
+    width: 100px;
+    border: 5px solid $wine-color;
+    img {
+        width: 100%;
+        margin: auto;
+    }
+}
+
+.review {
+    padding: 20px;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.sign {
+    color: $wine-color;
+    padding: 20px;
+}
+
+.image-container {
+    text-align: center;
+}
