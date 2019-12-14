@@ -31,8 +31,16 @@
 .Title {
     color: $wine-color;
 }
+.ProductSummary {
+    position: relative;
+}
 
 .AddToCart {
-    
-    
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+    .Add {
+        color: $white;
+        background-color: $wine-color;
+    }
 }

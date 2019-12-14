@@ -46,14 +46,14 @@ const PDP: SFC = () => {
                                 <img src={wine.image} alt={wine.title}/>
                             </div>
                         </Item>
-                        <Item xs={12} sm={7} md={5}>
+                        <Item xs={12} sm={7} md={5} className={styles.ProductSummary}>
                             <Typography variant='h4' className={styles.Title}>Wine Details</Typography>
                             <Typography className={styles.Description}>{wine.description}</Typography>
                             <Typography className={styles.Description}><strong>Price:</strong> $ {wine.price.toFixed(2)}</Typography>
                             
                             <div className={styles.AddToCart}>    
                                 <div>
-                                    <Button variant="contained">Add to Cart</Button>
+                                    <Button variant="contained" className={styles.Add}>Add to Cart</Button>
                                 </div>
                             </div>
 
