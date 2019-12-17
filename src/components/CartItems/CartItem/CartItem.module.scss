@@ -1,0 +1,10 @@
+@import '../../../styles/Layout.scss';
+
+.ItemInfo {
+    display: flex;
+    flex-direction: row;
+}
+
+.ProductImage {
+    @include responsive-image(100px)
+}
