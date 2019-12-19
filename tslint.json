@@ -4,7 +4,9 @@
       "ordered-imports": false,
       "object-literal-sort-keys": false,
       "no-debugger": false,
-      "no-console": false
+      "no-console": false,
+      "jsx-no-lambda": false,
+      "no-useless-escape": false
     },
     "linterOptions": {
       "exclude": [

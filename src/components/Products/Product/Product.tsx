@@ -2,11 +2,14 @@ import React, {SFC} from 'react';
 import { Typography, Card, CardHeader, CardContent, CardActions, IconButton } from '@material-ui/core';
 import AddToCart from '@material-ui/icons/AddShoppingCart';
 import Details from '@material-ui/icons/Details';
-import IProps from './IProps';
+import IProps, {IExtendedProps} from './IProps';
 import './Product.scss';
 import { Link } from 'react-router-dom';
+import { addItem } from '../../../store/cart/CartActions';
+import { connect } from 'react-redux';
 
-const Product : SFC<IProps> = (props) => {
+
+const Product : SFC<IExtendedProps> = (props) => {
 
     return (
         <Card className='product'>
@@ -19,7 +22,7 @@ const Product : SFC<IProps> = (props) => {
                 <Typography variant='subtitle2'>$ {props.price.toFixed(2)}</Typography>
             </CardContent>   
             <CardActions disableSpacing={true}>
-                <IconButton className='button'>
+                <IconButton className='button' onClick={()=> props.addItem(props)}>
                     <AddToCart/>
                 </IconButton>
                 <Link to={`/PDP/${props.id}`}>
@@ -32,4 +35,10 @@ const Product : SFC<IProps> = (props) => {
     )
 }
 
-export default Product;
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        addItem: (product: IProps) => dispatch(addItem({wine: product, quantity: 1}))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Product);

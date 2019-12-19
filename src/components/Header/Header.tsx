@@ -1,7 +1,7 @@
 import React, {SFC} from 'react';
 import {AppBar} from '@material-ui/core'
 import { logo } from '../../assets/images'
-import SignButton from '../SignButton/SignButton';
+import UserButton from '../UserButton/UserButton';
 import CartButton from '../CartButton/CartButton';
 import './Header.scss'
 import {NavLink, Link} from 'react-router-dom';
@@ -24,7 +24,7 @@ const Header : SFC = () => {
                     </div>
                 </Item>
                 <Item xs={1}>
-                    <SignButton />
+                    <UserButton />
                 </Item>
                 <Item xs={11} className='links'>
                     {links.map((v,i) => {

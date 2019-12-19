@@ -1,10 +1,38 @@
 @import '../../../styles/Layout.scss';
+@import '../../../styles/Colors.scss';
+
+.CartItem {
+    margin: 10px 30px;
+    box-shadow: 0 5px 5px #444;
+    padding: 10px;
+    
+}
 
 .ItemInfo {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
 .ProductImage {
     @include responsive-image(100px)
+}
+
+.Qty {
+    text-align: center;
+    width:40px;
+}
+
+.Remove {
+    border: 0;
+    background-color: $wine-color;
+    color: $white;
+    :hover{
+        cursor: pointer;
+    }  
+    :focus {
+        transform: none;
+    }  
 }

@@ -8,3 +8,7 @@ export default interface IProps {
     price: number;
     title: string;
 }
+
+export interface IExtendedProps extends IProps {
+    addItem: (product: IProps) => void;
+}
