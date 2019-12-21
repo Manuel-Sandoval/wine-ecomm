@@ -4,6 +4,9 @@ import IState from './IState';
 import Products from '../../components/Products/Products';
 import mainAPI from '../../middleware/MainService';
 import IWine from '../../components/Products/Product/IProps';
+import Container from '../../ui/Container/Container';
+import Item from '../../ui/Item/Item';
+import Filters from '../../components/Filters/Filters';
 
 class Shop extends Component<{}, IState> {
 
@@ -20,7 +23,12 @@ class Shop extends Component<{}, IState> {
                 <SectionPresentation 
                     title='Our Products'
                     body='Only the best products for you'/>
-                <Products list={this.state.wines} />
+                <Container>
+                    <Filters />
+                    <Item xs={12}>
+                        <Products list={this.state.wines} />
+                    </Item>
+                </Container>
             </div>
         );
     }

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { AppBar, Toolbar,  Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import CartButton from '../../components/CartButton/CartButton';
-import UserButton from '../../components/UserButton/UserButton';
 import IState from './IState';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
@@ -28,7 +27,6 @@ class NavBar extends Component<{}, IState> {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant='h6' className='title'>Wine Store</Typography>
-                        <UserButton />
                         <CartButton to='/cart'/>
                     </Toolbar>
                 </AppBar>

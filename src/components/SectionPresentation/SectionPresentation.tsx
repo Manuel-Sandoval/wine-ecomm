@@ -9,7 +9,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import {Link} from 'react-router-dom';
 import IProps from './IProps';
 
-import './SectionPresentation.scss';
+import styles from './SectionPresentation.module.scss';
 
 const SectionPresentation: SFC<IProps> = (props) => {
 
@@ -22,7 +22,7 @@ const SectionPresentation: SFC<IProps> = (props) => {
         shopLink = (
             <Container justify='center'>
                 <Link 
-                    className='product-link' 
+                    className={styles.ProductLink}
                     to={to}
                     >{props.linkText} <ArrowRightIcon fontSize='small'/>
                 </Link>
@@ -32,14 +32,14 @@ const SectionPresentation: SFC<IProps> = (props) => {
 
     return (
         <Container justify='center'>
-            <Item xs={12} className='section'>
+            <Item xs={12} className={props.className}>
                 <Typography 
-                    className='product-header' 
+                    className={styles.ProductHeader} 
                     variant='h4'
                     >{props.title}
                 </Typography>
                 <Typography 
-                    className='product-text' 
+                    className={styles.ProductText} 
                     variant='body1'
                     >{props.body}
                 </Typography>

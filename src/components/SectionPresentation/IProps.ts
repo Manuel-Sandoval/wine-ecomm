@@ -4,4 +4,5 @@ export default interface IProps {
     body: string;
     to?: string;
     linkText?: string;
+    className?:string;
 }

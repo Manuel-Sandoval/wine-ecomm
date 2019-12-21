@@ -1,21 +1,21 @@
 @import "../../styles/Colors.scss";
 @import "../../styles/Layout.scss";
 
-@mixin presentation {
+@mixin center {
     text-align: center;
 }
 
-.product-header {
-    @include presentation;
+.ProductHeader {
+    @include center;
     color: $wine-color;
 }
 
-.product-text {
-    @include presentation;
+.ProductText {
+    @include center;
 }
 
-.product-link {
-    @include presentation;
+.ProductLink {
+    @include center;
     color: $wine-color;
     text-decoration: none;
 }

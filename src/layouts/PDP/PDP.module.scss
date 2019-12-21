@@ -1,12 +1,5 @@
 @import '../../styles/Colors.scss';
 
-.TitleContainer {
-    padding: 20px 0;
-    background-color: $wine-color;
-    text-align: center;
-    color: $white;
-}
-
 .ImageItem {
     display: flex;
     justify-content: center;
@@ -28,9 +21,6 @@
     font-size: 20px;
 }
 
-.Title {
-    color: $wine-color;
-}
 .ProductSummary {
     position: relative;
 }

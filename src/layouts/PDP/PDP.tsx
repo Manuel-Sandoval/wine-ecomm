@@ -6,6 +6,7 @@ import { Typography, Button } from '@material-ui/core';
 import styles from './PDP.module.scss';
 import Container from '../../ui/Container/Container';
 import Item from '../../ui/Item/Item';
+import Title from '../../components/Title/Title';
 
 const PDP: SFC = () => {
 
@@ -37,9 +38,7 @@ const PDP: SFC = () => {
             {
                 wine && 
                 <>
-                    <div className={styles.TitleContainer}>
-                        <Typography variant='h2'>{wine.title}</Typography>
-                    </div>
+                    <Title title={wine.title}/>
                     <Container justify='center' className={styles.ProductInfo}>
                         <Item xs={12} sm={5} md={4} className={styles.ImageItem}>
                             <div className={styles.ImageContainer}>

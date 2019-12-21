@@ -13,6 +13,8 @@ import IState from './IState';
 import IWine from '../../components/Products/Product/IProps';
 import IBrand from '../../components/Brands/Brand/IProps';
 
+import styles from './Home.module.scss';
+
 class Home extends Component<{}, IState> {
 
     constructor(props: {}) {
@@ -34,18 +36,21 @@ class Home extends Component<{}, IState> {
                     title='Our Products'
                     body='Only the best products for you'
                     to='/shop'
-                    linkText='Visit our store'/>
+                    linkText='Visit our store'
+                    className={styles.SectionPresentation}/>
                 <Products list={this.state.wines}/>
                 <SectionPresentation 
                     showLink={true} 
                     title='Our Brands'
                     body='Only the best brands for you'
                     to='/brands'
-                    linkText='Check our brands'/>
+                    linkText='Check our brands'
+                    className={styles.SectionPresentation}/>
                 <Brands list={this.state.brands}/>
                 <SectionPresentation 
                     title='Client reviews'
-                    body='What our clients says about us'/>
+                    body='What our clients says about us'
+                    className={styles.SectionPresentation}/>
                 <ClientOpinions />
             </div>
         );
