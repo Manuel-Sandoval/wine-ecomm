@@ -16,6 +16,14 @@ const isLoading: ActionCreator<IProductLoadingAction> = () => (
     }
 )
 
-export const getProducts: = () => {
-
+export const getProducts: ActionCreator<ThunkAction<Promise<AnyAction>, IProductsState, null, IProductGetAllAction>> = () => {
+    return async (dispatch: Dispatch) => {
+        dispatch(isLoading());
+        const res = await mainAPI.get('/wines');
+        const data  = res.data;
+        return dispatch({
+            type: ProductActionTypes.GET_ALL,
+            products: data
+        });
+    };
 };
