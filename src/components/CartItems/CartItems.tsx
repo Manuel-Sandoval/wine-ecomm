@@ -1,7 +1,5 @@
 import React, {SFC} from 'react';
-import { connect } from 'react-redux';
 import CartItem from './CartItem/CartItem';
-import { IApplicationState } from '../../store/Store';
 import IProps from './IProps';
 
 const CartItems: SFC<IProps> = (props) => {
@@ -18,11 +16,4 @@ const CartItems: SFC<IProps> = (props) => {
 
 }
 
-const mapStateToProps = (store: IApplicationState) => {
-    return {
-        products: store.cart.products
-    }
-}
-
-
-export default connect(mapStateToProps)(CartItems);
+export default CartItems;

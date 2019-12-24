@@ -8,7 +8,7 @@ import {IApplicationState} from '../../store/Store';
 import { getProducts, selectBrand, removeBrand, filterByBrand } from '../../store/products/ProductActions';
 import IShopProps from './IShopProps';
 import { connect } from 'react-redux';
-import { Fab } from '@material-ui/core';
+import { Fab, CircularProgress } from '@material-ui/core';
 import styles from './Shop.module.scss';
 import TopIcon from '@material-ui/icons/ArrowUpward';
 import MenuIcon from '@material-ui/icons/MenuOpen';
@@ -47,13 +47,25 @@ class Shop extends Component<IShopProps, IShopState> {
 
     }
 
-    public componentDidUpdate = () => {
-        console.log('[ComponentDidUpdate]: Shop')
+    public componentDidUpdate(prevProps: IShopProps) {
+        if (this.props.selectedBrands.length !== prevProps.selectedBrands.length) {
+            console.log('[ComponentDidUpdate]: Shop');
+            this.props.filterByBrand();
+        }
     }
 
     public render() {
 
         let toTopStyle = styles.ActionButtons;
+        let loading = (
+            <div className={styles.SpinnerContainer}>
+                <CircularProgress color="secondary" size={200}/>
+            </div>
+        );
+
+        if (!this.props.loading) {
+            loading = <Products list={this.props.wines} />
+        }
 
         if (this.state.drawerOpen) {
             toTopStyle = styles.ActionButtonsLeft;
@@ -72,7 +84,7 @@ class Shop extends Component<IShopProps, IShopState> {
                              select={this.props.selectBrand}
                              remove={this.props.removeBrand}/>
                     <Item xs={12}>
-                        <Products list={this.props.wines} />
+                        {loading}
                     </Item>
                     <div className={toTopStyle}>
                         <Fab className={styles.FloatButton} onClick={this.scrollToTopHandler} size='medium' color='secondary'>

@@ -22,6 +22,11 @@
     margin: 10px 10px;
 }
 
+.SpinnerContainer {
+    padding-top: 30px;
+    text-align: center;
+}
+
 @keyframes moveToLeft {
     0% {
         transform: translateX(100%);

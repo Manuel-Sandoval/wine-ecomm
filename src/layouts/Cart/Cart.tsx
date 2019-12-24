@@ -5,20 +5,26 @@ import Title from '../../components/Title/Title';
 import Item from '../../ui/Item/Item';
 import {Button, Typography, Divider } from '@material-ui/core';
 import styles from './Cart.module.scss';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import IProps from './ICartProps';
+import { IApplicationState } from '../../store/Store';
 
-class Cart extends Component {
+class Cart extends Component<IProps> {
     public render() {
         return (
             <div>
                 <Title title='Cart'/>
                 <Container direction='column' justify='center'>
                     <Item xs={12}>
-                        <CartItems/>
+                        <CartItems products={this.props.products}/>
                     </Item>
                 </Container>
                 <Container className={styles.Resume}>
                     <Item xs={7}>
+                    <Link to='/shop'>
                         <Button variant='outlined'>Continue Shopping</Button>
+                    </Link>
                     </Item>
                     <Item xs={3}>
                         <Typography variant='h5'>Cart Totals</Typography>
@@ -31,7 +37,9 @@ class Cart extends Component {
                             <Typography><strong>Total:</strong></Typography>
                             <Typography>$ 120</Typography>
                         </div>
-                        <Button variant='contained'>Proceed to checkout</Button>
+                        <Button variant='contained'>
+                            Proceed to checkout
+                        </Button>
                     </Item>
                 </Container>
             </div>
@@ -39,4 +47,10 @@ class Cart extends Component {
     }
 }
 
-export default Cart;
+const mapStateToProps = (store: IApplicationState) => {
+    return {
+        products: store.cart.products
+    }
+}
+
+export default connect(mapStateToProps)(Cart);
