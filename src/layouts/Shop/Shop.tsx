@@ -5,45 +5,116 @@ import Container from '../../ui/Container/Container';
 import Item from '../../ui/Item/Item';
 import Filters from '../../components/Filters/Filters';
 import {IApplicationState} from '../../store/Store';
-import { getProducts } from '../../store/products/ProductActions';
+import { getProducts, selectBrand, removeBrand, filterByBrand } from '../../store/products/ProductActions';
 import IShopProps from './IShopProps';
 import { connect } from 'react-redux';
+import { Fab } from '@material-ui/core';
+import styles from './Shop.module.scss';
+import TopIcon from '@material-ui/icons/ArrowUpward';
+import MenuIcon from '@material-ui/icons/MenuOpen';
+import IShopState from './IShopState';
+import { IBrandItem } from "../../components/Filters/IFilterProps";
+import IBrand from '../../components/Brands/Brand/IProps';
+import mainAPI from '../../middleware/MainService';
 
-class Shop extends Component<IShopProps> {
+class Shop extends Component<IShopProps, IShopState> {
 
-    public componentDidMount() {
+    constructor (props: IShopProps) {
+        super(props);
+
+        this.state = {
+            drawerOpen: false,
+            brands: []
+        }
+    }
+
+    public componentDidMount () {
+
+        console.log('[ComponentDidMount: Shop]');
+
         this.props.getProducts();
+
+        mainAPI.get<IBrand[]>('/brands')
+                .then(res => {
+                    const brandItems: IBrandItem[] = res.data.map( (v) => {
+                        return {id: v.id, name: v.name};
+                    })
+                    this.setState({brands: brandItems});
+                })
+                .catch(err => {
+                    console.log(err);
+                }); 
+
+    }
+
+    public componentDidUpdate = () => {
+        console.log('[ComponentDidUpdate]: Shop')
     }
 
     public render() {
+
+        let toTopStyle = styles.ActionButtons;
+
+        if (this.state.drawerOpen) {
+            toTopStyle = styles.ActionButtonsLeft;
+        }
+
         return (
             <div>
                 <SectionPresentation 
                     title='Our Products'
-                    body='Only the best products for you'/>
+                    body='Only the best products for you'
+                    className={styles.Title}/>
                 <Container>
-                    <Filters />
+                    <Filters open={this.state.drawerOpen} 
+                             onClose={this.drawerStateHandler} 
+                             list={this.state.brands}
+                             select={this.props.selectBrand}
+                             remove={this.props.removeBrand}/>
                     <Item xs={12}>
                         <Products list={this.props.wines} />
                     </Item>
+                    <div className={toTopStyle}>
+                        <Fab className={styles.FloatButton} onClick={this.scrollToTopHandler} size='medium' color='secondary'>
+                            <TopIcon />
+                        </Fab>
+                        {this.state.drawerOpen ||
+                            <Fab className={styles.FloatButton} onClick={this.drawerStateHandler} size='medium' color='secondary'>
+                                <MenuIcon/>
+                            </Fab>
+                        }
+                    </div>
                 </Container>
             </div>
         );
     }
 
-    
+    private scrollToTopHandler() {
+        document.body.scrollTop = 0; // safari uses this
+        document.documentElement.scrollTop = 0; // the other browser listens to this
+    }
+
+    private drawerStateHandler = () => {        
+        const drawerState = this.state.drawerOpen;
+        this.setState({drawerOpen: !drawerState});
+    }
+
 }
 
 const mapStateToProps = (store: IApplicationState) => {
     return {
         loading: store.products.loading,
-        wines: store.products.wines
+        wines: store.products.wines,
+        selectedBrands: store.products.selectedBrands
     };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        getProducts: () => dispatch(getProducts())
+        getProducts: () => dispatch(getProducts()),
+        selectBrand: (id: number) => dispatch(selectBrand(id)),
+        removeBrand: (id: number) => dispatch(removeBrand(id)),
+        filterByBrand: () => dispatch(filterByBrand())
     }
 };
 

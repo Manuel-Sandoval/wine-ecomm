@@ -3,12 +3,13 @@ import { ThunkAction } from 'redux-thunk';
 import mainAPI from '../../middleware/MainService';
 import {IProductGetAllAction, 
         IProductLoadingAction, 
-        IProductFilterByBrandAction, 
         IProductsState, 
-        ProductActionTypes} from './ProductTypes';
+        ProductActionTypes,
+        IProductSelectBrandAction,
+        IProductRemoveBrandAction,
+        IProductFilterByBrandAction} from './ProductTypes';
 
 import IWine from '../../components/Products/Product/IProps';
-
 
 const isLoading: ActionCreator<IProductLoadingAction> = () => (
     {
@@ -27,3 +28,35 @@ export const getProducts: ActionCreator<ThunkAction<Promise<AnyAction>, IProduct
         });
     };
 };
+
+export const selectBrand: ActionCreator<IProductSelectBrandAction> = (brand: number) => {
+
+    const brands= [brand]
+
+    return {
+        type: ProductActionTypes.SELECT_BRAND,
+        brands
+    }
+}
+
+export const removeBrand: ActionCreator<IProductRemoveBrandAction> = (brand: number) => {
+
+    const brands= [brand]
+
+    return {
+        type: ProductActionTypes.REMOVE_BRAND,
+        brands
+    }
+}
+
+export const filterByBrand: ActionCreator<ThunkAction<Promise<AnyAction>, IProductsState, null, IProductFilterByBrandAction>> = () => {
+    return async (dispatch: Dispatch) => {
+        dispatch(isLoading());
+        const res = await mainAPI.get<IWine[]>('/wines');
+        const data = res.data;
+        return dispatch({
+            type: ProductActionTypes.FILTER_BY_BRANDS,
+            products: data
+        });
+    };
+}

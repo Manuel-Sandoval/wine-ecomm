@@ -3,6 +3,7 @@ import { IProductsState, ProductsActions, ProductActionTypes } from './ProductTy
 
 const initialProductState: IProductsState = {
     wines: [],
+    selectedBrands: [],
     loading: false
 }
 
@@ -20,6 +21,22 @@ export const productsReducer: Reducer<IProductsState, ProductsActions>  = (
             return {
                 ...state,
                 wines: action.products,
+                loading: false
+            }
+        case ProductActionTypes.SELECT_BRAND:
+            return {
+                ...state,
+                selectedBrands: state.selectedBrands.concat(action.brands)
+            }
+        case ProductActionTypes.REMOVE_BRAND:
+            return {
+                ...state,
+                selectedBrands: state.selectedBrands.filter( b => !action.brands.includes(b))
+            }
+        case ProductActionTypes.FILTER_BY_BRANDS:
+            return {
+                ...state,
+                wines: action.products.filter(w => state.selectedBrands.includes(w.brand.id)),
                 loading: false
             }
         default:

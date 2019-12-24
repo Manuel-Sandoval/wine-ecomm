@@ -22,7 +22,7 @@ const Brands: SFC<IProps> = (props) => {
 
     return (
         <>
-            <Container direction='row' justify='center' alignItems='center' spacing={4} className={styles.Brands}>
+            <Container justify='center' alignItems='center' className={styles.Brands}>
                 {brands}
             </Container>
         </>

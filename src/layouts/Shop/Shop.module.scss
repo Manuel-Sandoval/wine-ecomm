@@ -1,0 +1,33 @@
+.Title {
+    margin-bottom: 20px;
+}
+
+.ActionButtons {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
+.ActionButtonsLeft {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+
+    animation-name: moveToLeft;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
+}
+
+.FloatButton {
+    margin: 10px 10px;
+}
+
+@keyframes moveToLeft {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}

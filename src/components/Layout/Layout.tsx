@@ -9,8 +9,6 @@ import {
     Route
   } from "react-router-dom";
 
-import './Layout.scss';
-
 const Layout: FC = () => {
     return (
         <Switch>

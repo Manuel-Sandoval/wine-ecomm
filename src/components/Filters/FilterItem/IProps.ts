@@ -1,6 +1,8 @@
-import { ChangeEvent } from "react";
+import { selectBrand, removeBrand } from "../../../store/products/ProductActions";
 
 export default interface IProps{
+    id: number;
     brandName: string;
-    select: (event: ChangeEvent<HTMLInputElement>) => void;
+    select: typeof selectBrand;
+    remove: typeof removeBrand;
 }

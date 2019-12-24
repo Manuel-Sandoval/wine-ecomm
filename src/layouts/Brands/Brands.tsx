@@ -26,6 +26,7 @@ class Brands extends Component<{}, IState> {
     }
 
     public componentDidMount() {
+        console.log('[ComponentDidMount: Brands]')
         mainAPI.get<IBrand[]>('/brands')
                 .then(res => {
                     this.setState({brands: res.data});
@@ -33,6 +34,10 @@ class Brands extends Component<{}, IState> {
                 .catch(err => {
                     console.log(err);
                 }); 
+    }
+
+    public componentDidUpdate() {
+        console.log('[ComponentDidUpdate]: Brands')
     }
 
 }
