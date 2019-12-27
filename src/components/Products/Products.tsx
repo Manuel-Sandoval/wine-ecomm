@@ -11,14 +11,15 @@ const Products: SFC<IProps> = (props) => {
         <Container direction='row' justify='center' alignItems='center' spacing={4} className={styles.Products}>
             {props.list.map((v) => {
                 return ( 
-                        <Item key={v.id} xs={12} sm={6} md={4}>
+                        <Item key={v.wine.id} xs={12} sm={6} md={4}>
                             <Product 
-                                id={v.id}
-                                brand={v.brand}
-                                description={v.description}
-                                image={v.image} 
-                                price={v.price}
-                                title={v.title}
+                                id={v.wine.id}
+                                brand={v.wine.brand}
+                                description={v.wine.description}
+                                image={v.wine.image} 
+                                price={v.wine.price}
+                                title={v.wine.title}
+                                isInCart = {v.isInCart}
                                 />
                         </Item>
                     );

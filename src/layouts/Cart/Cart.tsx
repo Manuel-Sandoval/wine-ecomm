@@ -9,9 +9,32 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import IProps from './ICartProps';
 import { IApplicationState } from '../../store/Store';
+import Checkout from '../../components/Checkout/Checkout';
+import IState from './ICartState';
+import { emptyInfo } from '../../store/checkout/CheckoutActions';
 
-class Cart extends Component<IProps> {
+class Cart extends Component<IProps, IState> {
+
+    constructor(props: IProps) {
+        super(props);
+        this.state = {
+            modalOpen: false
+        }
+    }
+
+
     public render() {
+
+        let subtotal = 0;
+        let taxes = 0;
+        let total = 0;
+
+        if (this.props.products.length > 0) {
+            subtotal = this.props.products.reduce((t, n) => (t + (Number(n.wine.price.toFixed(2)) * n.quantity)), 0);
+            taxes = this.props.products.reduce((t, n) => (t + (Number(n.wine.price.toFixed(2)) * .16 * n.quantity)), 0)
+            total = subtotal + taxes;
+        }
+
         return (
             <div>
                 <Title title='Cart'/>
@@ -31,20 +54,31 @@ class Cart extends Component<IProps> {
                         <Divider/>
                         <div className={styles.FormContainer}>
                             <Typography><strong>Subtotal:</strong></Typography>
-                            <Typography>$ 100</Typography>
+                            <Typography>$ {subtotal.toFixed(2)}</Typography>
                             <Typography><strong>Taxes:</strong></Typography>
-                            <Typography>$ 20</Typography>
+                            <Typography>$ {taxes.toFixed(2)}</Typography>
                             <Typography><strong>Total:</strong></Typography>
-                            <Typography>$ 120</Typography>
+                            <Typography>$ {total.toFixed(2)}</Typography>
                         </div>
-                        <Button variant='contained'>
+                        <Button variant='contained' onClick={this.openModalHandler}>
                             Proceed to checkout
                         </Button>
                     </Item>
                 </Container>
+                <Checkout modalOpen={this.state.modalOpen} cancel={this.closeModalHandler}/>
             </div>
         );
     }
+
+    private openModalHandler = () => {
+        this.setState({modalOpen: true});
+        this.props.emptyInfo();
+    } 
+
+    private closeModalHandler = () => {
+        this.setState({modalOpen: false});
+    } 
+
 }
 
 const mapStateToProps = (store: IApplicationState) => {
@@ -53,4 +87,10 @@ const mapStateToProps = (store: IApplicationState) => {
     }
 }
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch: any) => (
+    {
+        emptyInfo: () => dispatch(emptyInfo())
+    }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

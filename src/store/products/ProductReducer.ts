@@ -23,6 +23,12 @@ export const productsReducer: Reducer<IProductsState, ProductsActions>  = (
                 wines: action.products,
                 loading: false
             }
+        case ProductActionTypes.GET_BEST:
+                return {
+                    ...state,
+                    wines: action.products,
+                    loading: false
+                }
         case ProductActionTypes.SELECT_BRAND:
             return {
                 ...state,
@@ -37,7 +43,7 @@ export const productsReducer: Reducer<IProductsState, ProductsActions>  = (
 
             let updatedArray = action.products;
             if (state.selectedBrands.length > 0) {
-                updatedArray = action.products.filter(w => state.selectedBrands.includes(w.brand.id))
+                updatedArray = action.products.filter(w => state.selectedBrands.includes(w.wine.brand.id))
             }
 
             return {

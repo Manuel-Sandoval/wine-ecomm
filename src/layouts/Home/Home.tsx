@@ -10,22 +10,40 @@ import Brands from '../../components/Brands/Brands';
 
 import ClientOpinions from '../../components/ClientOpinions/ClientOpinions';
 import IState from './IState';
-import IWine from '../../components/Products/Product/IProps';
 import IBrand from '../../components/Brands/Brand/IProps';
 
 import styles from './Home.module.scss';
+import { connect } from 'react-redux';
+import { IApplicationState } from '../../store/Store';
+import IProps from './IHomeProps';
+import { getBestProducts } from '../../store/products/ProductActions';
+import { CircularProgress } from '@material-ui/core';
 
-class Home extends Component<{}, IState> {
+class Home extends Component<IProps, IState> {
 
-    constructor(props: {}) {
+    constructor(props: IProps) {
         super(props);
         this.state = {
-            wines: [],
             brands: []
         };
     }
 
     public render() {
+
+        let loading = (
+            <div className={styles.SpinnerContainer}>
+                <CircularProgress color="secondary" size={200}/>
+            </div>
+        );
+
+        if (!this.props.isLoading) {
+            loading = <Products list={this.props.wines.map(v => {
+                const value = v;
+                value.isInCart = this.props.cartProducts.filter(data => data.wine.id === v.wine.id).length > 0;
+                return value;
+            })} />
+        }
+
         return (
             <div>
                 <Container justify='center'>
@@ -38,7 +56,7 @@ class Home extends Component<{}, IState> {
                     to='/shop'
                     linkText='Visit our store'
                     className={styles.SectionPresentation}/>
-                <Products list={this.state.wines}/>
+                {loading}
                 <SectionPresentation 
                     showLink={true} 
                     title='Our Brands'
@@ -58,13 +76,7 @@ class Home extends Component<{}, IState> {
 
     public componentDidMount() {
 
-        mainAPI.get<IWine[]>('/best/wines')
-             .then(response => {
-                this.setState({wines: response.data});
-             })
-             .catch(err => {
-                 console.log(err);
-             });
+        this.props.getBestProducts();
              
         mainAPI.get<IBrand[]>('/best/brands')
              .then(response => {
@@ -77,4 +89,18 @@ class Home extends Component<{}, IState> {
 
 }
 
-export default Home;
+const mapStateToProps = (store: IApplicationState) => {
+    return {
+        wines: store.products.wines,
+        isLoading: store.products.loading,
+        cartProducts: store.cart.products
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        getBestProducts: () => dispatch(getBestProducts())
+    }
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,5 +1,5 @@
-import IWine from './Product/IProps';
+import { IProductInfo } from "../../store/products/ProductTypes";
 
 export default interface IProps {
-    list: IWine[];
+    list: IProductInfo[];
 }

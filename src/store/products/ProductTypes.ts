@@ -2,6 +2,7 @@ import IWine from '../../components/Products/Product/IProps'
 
 export enum ProductActionTypes {
     GET_ALL = 'PRODUCTS/GET_ALL',
+    GET_BEST = 'PRODUCTS/GET_BEST',
     LOADING = 'PRODUCTS/LOADING',
     FILTER_BY_BRANDS = 'PRODUCTS/FILTER_BY_BRANDS',
     SELECT_BRAND = 'PRODUCTS/SELECT_BRAND',
@@ -10,7 +11,12 @@ export enum ProductActionTypes {
 
 export interface IProductGetAllAction {
     type: ProductActionTypes.GET_ALL;
-    products: IWine[]
+    products: IProductInfo[]
+}
+
+export interface IProductGetBestAction {
+    type: ProductActionTypes.GET_BEST
+    products: IProductInfo[];
 }
 
 export interface IProductLoadingAction {
@@ -29,17 +35,24 @@ export interface IProductRemoveBrandAction {
 
 export interface IProductFilterByBrandAction {
     type: ProductActionTypes.FILTER_BY_BRANDS;
-    products: IWine[]
+    products: IProductInfo[]
 }
 
 export type ProductsActions = IProductGetAllAction | 
+                              IProductGetBestAction |
                               IProductLoadingAction | 
                               IProductSelectBrandAction | 
                               IProductRemoveBrandAction |
                               IProductFilterByBrandAction;
 
+
+export interface IProductInfo {
+    wine: IWine;
+    isInCart: boolean;
+}
+
 export interface IProductsState {
-    readonly wines: IWine[];
+    readonly wines: IProductInfo[];
     readonly selectedBrands: number[];
     readonly loading: boolean;
 }

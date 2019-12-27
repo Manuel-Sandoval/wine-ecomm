@@ -7,8 +7,10 @@ export default interface IProps {
     image: string;
     price: number;
     title: string;
+    isInCart: boolean;
 }
 
 export interface IExtendedProps extends IProps {
     addItem: (product: IProps) => void;
+    removeItem: (product: IProps) => void;
 }

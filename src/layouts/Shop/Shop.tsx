@@ -29,11 +29,7 @@ class Shop extends Component<IShopProps, IShopState> {
     }
 
     public componentDidMount () {
-
-        console.log('[ComponentDidMount: Shop]');
-
         this.props.getProducts();
-
         mainAPI.get<IBrand[]>('/brands')
                 .then(res => {
                     const brandItems: IBrandItem[] = res.data.map( (v) => {
@@ -64,7 +60,11 @@ class Shop extends Component<IShopProps, IShopState> {
         );
 
         if (!this.props.loading) {
-            loading = <Products list={this.props.wines} />
+            loading = <Products list={this.props.wines.map(v => {
+                const value = v;
+                value.isInCart = this.props.cartProducts.filter(data => data.wine.id === v.wine.id).length > 0;
+                return value;
+            })} />
         }
 
         if (this.state.drawerOpen) {
@@ -117,7 +117,8 @@ const mapStateToProps = (store: IApplicationState) => {
     return {
         loading: store.products.loading,
         wines: store.products.wines,
-        selectedBrands: store.products.selectedBrands
+        selectedBrands: store.products.selectedBrands,
+        cartProducts: store.cart.products
     };
 };
 
