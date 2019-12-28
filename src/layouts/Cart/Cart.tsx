@@ -11,7 +11,8 @@ import IProps from './ICartProps';
 import { IApplicationState } from '../../store/Store';
 import Checkout from '../../components/Checkout/Checkout';
 import IState from './ICartState';
-import { emptyInfo } from '../../store/checkout/CheckoutActions';
+import { emptyInfo, populateSummary } from '../../store/checkout/CheckoutActions';
+import { ICheckoutSummary } from '../../store/checkout/CheckoutTypes';
 
 class Cart extends Component<IProps, IState> {
 
@@ -72,11 +73,13 @@ class Cart extends Component<IProps, IState> {
 
     private openModalHandler = () => {
         this.setState({modalOpen: true});
-        this.props.emptyInfo();
+        this.props.populateSummary({items: this.props.products});
+        
     } 
 
     private closeModalHandler = () => {
         this.setState({modalOpen: false});
+        this.props.emptyInfo();
     } 
 
 }
@@ -89,7 +92,8 @@ const mapStateToProps = (store: IApplicationState) => {
 
 const mapDispatchToProps = (dispatch: any) => (
     {
-        emptyInfo: () => dispatch(emptyInfo())
+        emptyInfo: () => dispatch(emptyInfo()),
+        populateSummary: (summaryInfo: ICheckoutSummary) => dispatch(populateSummary(summaryInfo))
     }
 )
 
