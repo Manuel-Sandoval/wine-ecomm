@@ -6,18 +6,83 @@ const initialState: ICheckoutState = {
         items: []
     },
     userInfo: {
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        address: '',
-        phoneNumber: ''
+        firstName: {
+            id: 'firstName',
+            value: '', 
+            error: false, 
+            touched: false,
+            requiered: true
+        },
+        middleName: {
+            id: 'middleName',
+            value: '',
+            error: false, 
+            touched: false,
+            requiered: false
+        },
+        lastName: {
+            id: 'lastName',
+            value: '', 
+            error: false, 
+            touched: false,
+            requiered: true
+        },
+        address: {
+            id: 'address',
+            value: '', 
+            error: false, 
+            touched: false,
+            requiered: true
+        },
+        phoneNumber: {
+            id: 'phoneNumber',
+            value: '', 
+            error: false, 
+            touched: false, 
+            limit: 10,
+            requiered: true
+        }
     },
     paymentInfo: {
-        cardNumber: '',
-        cardAddress: '',
-        expirationMonth: '',
-        expirationYear: '',
-        secretCode: ''
+        cardNumber: {
+            id: 'cardNumber',
+            value: '', 
+            error: false, 
+            touched: false, 
+            limit: 16,
+            requiered: true
+        },
+        cardAddress: {
+            id: 'cardAddress',
+            value: '', 
+            error: false, 
+            touched: false, 
+            requiered: true
+        },
+        expirationMonth: {
+            id: 'expirationMonth',
+            value: '', 
+            error: false, 
+            touched: false, 
+            limit: 2,
+            requiered: true
+        },
+        expirationYear: {
+            id: 'expirationYear',
+            value: '', 
+            error: false, 
+            touched: false, 
+            limit: 2,
+            requiered: true
+        },
+        secretCode: {
+            id: 'secretCode',
+            value: '', 
+            error: false, 
+            touched: false, 
+            limit: 4,
+            requiered: true
+        }
     },
     currentStep: 0,
     totalSteps: 5

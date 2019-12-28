@@ -1,4 +1,4 @@
-import React, { SFC, useState, ChangeEvent, useEffect } from 'react';
+import React, { SFC, ChangeEvent, useEffect } from 'react';
 import { TextField } from '@material-ui/core';
 import Container from '../../../../ui/Container/Container';
 import Item from '../../../../ui/Item/Item';
@@ -12,55 +12,16 @@ import { ICheckoutUserInfo } from '../../../../store/checkout/CheckoutTypes';
 
 const LocationForm: SFC<IProps> = props => {
 
-    const [inputValues, setInputValues] = useState(
-        {
-            firstName: {
-                id: 'firstName',
-                value: props.userInfo.firstName, 
-                error: false, 
-                touched: false,
-                requiered: true
-            },
-            middleName: {
-                id: 'middleName',
-                value: props.userInfo.middleName,
-                error: false, 
-                touched: false,
-                requiered: false
-            },
-            lastName: {
-                id: 'lastName',
-                value: props.userInfo.lastName, 
-                error: false, 
-                touched: false,
-                requiered: true
-            },
-            address: {
-                id: 'address',
-                value: props.userInfo.address, 
-                error: false, 
-                touched: false,
-                requiered: true
-            },
-            phoneNumber: {
-                id: 'phoneNumber',
-                value: props.userInfo.phoneNumber, 
-                error: false, 
-                touched: false, 
-                limit: 10,
-                requiered: true
-            }
-        }            
-    );
+    const {userInfo, storeUserInfo, setDisable} = props;
 
     const onChangeFirstNameHandler = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const firstNameVal = event.target.value;
         if (isOnlyString(firstNameVal)) {
-            setInputValues({
-                ...inputValues,
+            storeUserInfo({
+                ...userInfo,
                 firstName: {
-                    ...inputValues.firstName,
+                    ...userInfo.firstName,
                     touched: true,
                     error: firstNameVal === '',
                     value: firstNameVal
@@ -73,10 +34,10 @@ const LocationForm: SFC<IProps> = props => {
         event.preventDefault();
         const middleName = event.target.value;
         if (isOnlyString(middleName)) {
-            setInputValues({
-                ...inputValues,
+            storeUserInfo({
+                ...userInfo,
                 middleName: {
-                    ...inputValues.middleName,
+                    ...userInfo.middleName,
                     touched: true,
                     value: middleName
                 }
@@ -88,10 +49,10 @@ const LocationForm: SFC<IProps> = props => {
         event.preventDefault();
         const lastName = event.target.value;
         if (isOnlyString(lastName)) {
-            setInputValues({
-                ...inputValues,
+            storeUserInfo({
+                ...userInfo,
                 lastName: {
-                    ...inputValues.lastName,
+                    ...userInfo.lastName,
                     touched: true,
                     error: lastName === '',
                     value: lastName
@@ -103,10 +64,10 @@ const LocationForm: SFC<IProps> = props => {
     const onChangeAddressHandler = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const address = event.target.value;
-        setInputValues({
-            ...inputValues,
+        storeUserInfo({
+            ...userInfo,
             address: {
-                ...inputValues.address,
+                ...userInfo.address,
                 touched: true,
                 error: address === '',
                 value: address
@@ -117,13 +78,13 @@ const LocationForm: SFC<IProps> = props => {
     const onChangePhoneNumberHandler = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const phoneTarget = event.target.value;
-        const error = phoneTarget.length < inputValues.phoneNumber.limit;
+        const error = phoneTarget.length < userInfo.phoneNumber.limit;
 
-        if (isInteger(phoneTarget) && phoneTarget.length <= inputValues.phoneNumber.limit) {
-            setInputValues({
-                ...inputValues,
+        if (isInteger(phoneTarget) && phoneTarget.length <= userInfo.phoneNumber.limit) {
+            storeUserInfo({
+                ...userInfo,
                 phoneNumber: {
-                    ...inputValues.phoneNumber,
+                    ...userInfo.phoneNumber,
                     value: phoneTarget,
                     touched: true,
                     error
@@ -134,78 +95,67 @@ const LocationForm: SFC<IProps> = props => {
     } 
 
     useEffect(() => {
-        const errors = Object.values(inputValues);
-        const valid = errors.every(err => {
-            if (err.requiered) {
-                return err.touched && !err.error
+        const info = Object.values(userInfo);
+        const valid = info.every(i => {
+            if (i.requiered) {
+                return i.touched && !i.error
             }
-            return !err.error;
+            return !i.error;
         });        
-        props.setDisable(!valid);
-        props.storeUser({
-            firstName: inputValues.firstName.value,
-            middleName: inputValues.middleName.value,
-            lastName: inputValues.lastName.value,
-            address: inputValues.address.value,
-            phoneNumber: inputValues.phoneNumber.value
-        });
+        setDisable(!valid);
 
-    }, [inputValues.firstName.value,
-        inputValues.middleName.value,
-        inputValues.lastName.value,
-        inputValues.address.value,
-        inputValues.phoneNumber.value]);
+    }, [userInfo, setDisable]);
 
     return (
         <form>
             <Container spacing={2}>
                 <Item xs={12} md={4}>
                     <TextField 
-                            id={inputValues.firstName.id} 
+                            id={userInfo.firstName.id} 
                             label='First Name' 
                             variant='outlined' 
-                            error={inputValues.firstName.error}
+                            error={userInfo.firstName.error}
                             className={styles.TextForm} 
-                            value={inputValues.firstName.value}
+                            value={userInfo.firstName.value}
                             onChange={onChangeFirstNameHandler}/>
                 </Item>
                 <Item xs={12} md={4}>
                     <TextField 
-                            id={inputValues.middleName.id} 
+                            id={userInfo.middleName.id} 
                             label='Middle Name' 
                             variant='outlined'
                             className={styles.TextForm}
-                            value={inputValues.middleName.value}
+                            value={userInfo.middleName.value}
                             onChange={onChangeMiddleNameHandler}/>
                 </Item>
                 <Item xs={12} md={4}>
                     <TextField 
-                            id={inputValues.lastName.id} 
+                            id={userInfo.lastName.id} 
                             label='Last Name' 
                             variant='outlined'
-                            error={inputValues.lastName.error}
+                            error={userInfo.lastName.error}
                             className={styles.TextForm}
-                            value={inputValues.lastName.value}
+                            value={userInfo.lastName.value}
                             onChange={onChangeLastNameHandler}/>
                 </Item>
                 <Item xs={12}>
                     <TextField 
-                            id={inputValues.address.id}
+                            id={userInfo.address.id}
                             label='Address' 
                             variant='outlined'
-                            error={inputValues.address.error}
+                            error={userInfo.address.error}
                             className={styles.TextForm}
-                            value={inputValues.address.value}
+                            value={userInfo.address.value}
                             onChange={onChangeAddressHandler}/>
                 </Item>
                 <Item xs={12}>
                     <TextField 
-                            id={inputValues.phoneNumber.id} 
+                            id={userInfo.phoneNumber.id} 
                             label='Phone Number' 
                             variant='outlined'
-                            error={inputValues.phoneNumber.error}
+                            error={userInfo.phoneNumber.error}
                             className={styles.TextForm}
-                            value={inputValues.phoneNumber.value} 
+                            value={userInfo.phoneNumber.value} 
                             onChange={onChangePhoneNumberHandler}/>
                 </Item>
             </Container>
@@ -221,7 +171,7 @@ const mapStateToProps = (store: IApplicationState) => (
 
 const mapDispatchToProps = (dispatch: any) => (
     {
-        storeUser: (userInfo: ICheckoutUserInfo) => dispatch(storeUser(userInfo))
+        storeUserInfo: (userInfo: ICheckoutUserInfo) => dispatch(storeUser(userInfo))
     }
 );
 

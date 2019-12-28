@@ -55,18 +55,30 @@ export interface ICheckoutSummary {
     items: ICartItem[]
 }
 
+export interface IFieldInfo {
+    id: string;
+    value: string; 
+    error: boolean;
+    touched: boolean;
+    requiered: boolean;
+}
+
+export interface ILimitNumber extends IFieldInfo{
+    limit: number;
+}
+
 export interface ICheckoutUserInfo {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-    address: string;
-    phoneNumber: string;
+    firstName: IFieldInfo;
+    middleName: IFieldInfo;
+    lastName: IFieldInfo;
+    address: IFieldInfo;
+    phoneNumber: ILimitNumber;
 }
 
 export interface ICheckoutPaymentInfo {
-    cardNumber: string;
-    cardAddress: string;
-    expirationMonth: string;
-    expirationYear: string;
-    secretCode: string;
+    cardNumber: ILimitNumber;
+    cardAddress: IFieldInfo;
+    expirationMonth: ILimitNumber;
+    expirationYear: ILimitNumber;
+    secretCode: ILimitNumber;
 }
