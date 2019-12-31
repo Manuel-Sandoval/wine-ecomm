@@ -7,8 +7,14 @@ import styles from './PDP.module.scss';
 import Container from '../../ui/Container/Container';
 import Item from '../../ui/Item/Item';
 import Title from '../../components/Title/Title';
+import { IApplicationState } from '../../store/Store';
+import { connect } from 'react-redux';
+import { addItem, deleteItem } from '../../store/cart/CartActions';
+import ICartItem from '../../components/CartItems/CartItem/IProps';
+import IProps from './IPDPProps';
 
-const PDP: SFC = () => {
+
+const PDP: SFC<IProps> = props => {
 
     const {id} = useParams();
     const [wine, setWines] = useState<IWine>();
@@ -33,6 +39,10 @@ const PDP: SFC = () => {
         shouldRedirect = <Redirect to='/shop' />
     }
 
+    const isInCart = props.cartItems.filter(ci => ci.wine.id === Number(id)).length > 0;
+    const buttonText = isInCart ? 'Remove from cart' : 'Add to cart';
+    const buttonEvent = isInCart ? props.removeFromCart : props.addItemToCart;
+
     return (
         <div>
             {
@@ -52,7 +62,7 @@ const PDP: SFC = () => {
                             
                             <div className={styles.AddToCart}>    
                                 <div>
-                                    <Button variant="contained" className={styles.Add}>Add to Cart</Button>
+                                    <Button variant="contained" className={styles.Add} onClick={() => buttonEvent({wine, quantity: 1})} >{buttonText}</Button>
                                 </div>
                             </div>
 
@@ -63,8 +73,19 @@ const PDP: SFC = () => {
             {shouldRedirect}
         </div>
     );
-    
-
 }
 
-export default PDP;
+const mapStateToProps = (store: IApplicationState) => (
+    {
+        cartItems: store.cart.products
+    }
+);
+
+const mapDispatchToProps = (dispatch: any) => (
+    {
+        addItemToCart: (cartItem: ICartItem) => dispatch(addItem(cartItem)),
+        removeFromCart: (cartItem: ICartItem) => dispatch(deleteItem(cartItem))
+    }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PDP);
