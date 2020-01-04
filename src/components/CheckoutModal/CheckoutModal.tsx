@@ -35,7 +35,6 @@ const CheckoutModal: SFC<IProps> = props => {
                 },
                 winesId: wineIds
             }; 
-            console.log(order);
         } 
       
         
