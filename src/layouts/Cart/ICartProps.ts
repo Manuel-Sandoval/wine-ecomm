@@ -1,8 +1,9 @@
 import ICartItem from '../../components/CartItems/CartItem/IProps';
-import { populateSummary } from '../../store/checkout/CheckoutActions';
+import { populateSummary, checkoutOpen } from '../../store/checkout/CheckoutActions';
 
 export default interface IProps {
     products: ICartItem[];
-    emptyInfo: () => void;
+    checkoutOpen: boolean;
+    openCheckout: typeof checkoutOpen;
     populateSummary: typeof populateSummary;
 }

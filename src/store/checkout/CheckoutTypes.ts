@@ -1,20 +1,15 @@
 import ICartItem from '../../components/CartItems/CartItem/IProps';
 
 export enum CheckoutActionTypes {
-    ADVANCE_STEP='CHECKOUT/ADVANCE_STEP',
-    BACK_STEP='CHECKOUT/BACK_STEP',
+    CHECKOUT_OPEN='CHECKOUT/CHECKOUT_OPEN',
     POPULATE_SUMMARY='CHECKOUT/POPULATE_SUMMARY',
     STORE_USER_INFO='CHECKOUT/STORE_USER_INFO',
     STORE_PAYMENT='CHECKOUT/STORE_PAYMENT',
     EMPTY_INFO='CHECKOUT/EMPTY_INFO'
 }
 
-export interface ICheckoutAdvanceStepAction {
-    type: CheckoutActionTypes.ADVANCE_STEP;
-}
-
-export interface ICheckoutBackStepAction {
-    type: CheckoutActionTypes.BACK_STEP;
+export interface ICheckoutOpenAction {
+    type: CheckoutActionTypes.CHECKOUT_OPEN;
 }
 
 export interface ICheckoutPopulateSummaryAction {
@@ -36,20 +31,11 @@ export interface ICheckoutEmptyInfoAction {
     type: CheckoutActionTypes.EMPTY_INFO;
 }
 
-export type CheckoutActions = ICheckoutAdvanceStepAction |
-                              ICheckoutBackStepAction |
+export type CheckoutActions = ICheckoutOpenAction |
                               ICheckoutPopulateSummaryAction |
                               ICheckoutStoreUserAction |
                               ICheckoutStorePaymentAction |
                               ICheckoutEmptyInfoAction;
-
-export interface ICheckoutState {
-    readonly summary: ICheckoutSummary;
-    readonly userInfo: ICheckoutUserInfo;
-    readonly paymentInfo: ICheckoutPaymentInfo;
-    readonly currentStep: number;
-    readonly totalSteps: number;
-}
 
 export interface ICheckoutSummary {
     items: ICartItem[]
@@ -68,17 +54,25 @@ export interface ILimitNumber extends IFieldInfo{
 }
 
 export interface ICheckoutUserInfo {
-    firstName: IFieldInfo;
-    middleName: IFieldInfo;
-    lastName: IFieldInfo;
+    fullName: IFieldInfo;
+    email: IFieldInfo;
     address: IFieldInfo;
-    phoneNumber: ILimitNumber;
+    city: IFieldInfo;
+    state: IFieldInfo;
+    zip: ILimitNumber;
 }
 
 export interface ICheckoutPaymentInfo {
     cardNumber: ILimitNumber;
-    cardAddress: IFieldInfo;
+    cardHolderName: IFieldInfo;
     expirationMonth: ILimitNumber;
     expirationYear: ILimitNumber;
     secretCode: ILimitNumber;
+}
+
+export interface ICheckoutState {
+    readonly checkoutOpen: boolean;
+    readonly summary: ICheckoutSummary;
+    readonly userInfo: ICheckoutUserInfo;
+    readonly paymentInfo: ICheckoutPaymentInfo;
 }

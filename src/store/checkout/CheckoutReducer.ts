@@ -2,27 +2,21 @@ import { Reducer } from 'redux';
 import { CheckoutActionTypes, CheckoutActions, ICheckoutState } from './CheckoutTypes';
 
 const initialState: ICheckoutState = {
+    checkoutOpen: false,
     summary: {
         items: []
     },
     userInfo: {
-        firstName: {
-            id: 'firstName',
+        fullName: {
+            id: 'fullName',
             value: '', 
             error: false, 
             touched: false,
             requiered: true
         },
-        middleName: {
-            id: 'middleName',
+        email: {
+            id: 'email',
             value: '',
-            error: false, 
-            touched: false,
-            requiered: false
-        },
-        lastName: {
-            id: 'lastName',
-            value: '', 
             error: false, 
             touched: false,
             requiered: true
@@ -34,13 +28,27 @@ const initialState: ICheckoutState = {
             touched: false,
             requiered: true
         },
-        phoneNumber: {
-            id: 'phoneNumber',
+        city: {
+            id: 'city',
             value: '', 
             error: false, 
-            touched: false, 
-            limit: 10,
+            touched: false,
             requiered: true
+        },
+        state: {
+            id: 'state',
+            value: '', 
+            error: false, 
+            touched: false,
+            requiered: true
+        },
+        zip: {
+            id: 'address',
+            value: '', 
+            error: false, 
+            touched: false,
+            requiered: true,
+            limit: 5,
         }
     },
     paymentInfo: {
@@ -52,8 +60,8 @@ const initialState: ICheckoutState = {
             limit: 16,
             requiered: true
         },
-        cardAddress: {
-            id: 'cardAddress',
+        cardHolderName: {
+            id: 'cardHolderName',
             value: '', 
             error: false, 
             touched: false, 
@@ -83,9 +91,7 @@ const initialState: ICheckoutState = {
             limit: 4,
             requiered: true
         }
-    },
-    currentStep: 0,
-    totalSteps: 5
+    }
 }
 
 export const checkoutReducer: Reducer<ICheckoutState, CheckoutActions> = (
@@ -93,15 +99,10 @@ export const checkoutReducer: Reducer<ICheckoutState, CheckoutActions> = (
     action
 ) => {
     switch(action.type) {
-        case CheckoutActionTypes.ADVANCE_STEP:
+        case CheckoutActionTypes.CHECKOUT_OPEN:
             return {
                 ...state,
-                currentStep: state.currentStep + 1
-            }
-        case CheckoutActionTypes.BACK_STEP:
-            return {
-                ...state,
-                currentStep: state.currentStep - 1
+                checkoutOpen: true
             }
         case CheckoutActionTypes.POPULATE_SUMMARY:
             return {

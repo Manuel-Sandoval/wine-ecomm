@@ -2,26 +2,19 @@ import { ActionCreator } from 'redux';
 
 import {
     CheckoutActionTypes,
-    ICheckoutAdvanceStepAction,
-    ICheckoutBackStepAction,
     ICheckoutPopulateSummaryAction,
     ICheckoutStoreUserAction,
     ICheckoutStorePaymentAction,
     ICheckoutSummary,
     ICheckoutUserInfo,
     ICheckoutPaymentInfo,
-    ICheckoutEmptyInfoAction
+    ICheckoutEmptyInfoAction,
+    ICheckoutOpenAction
 } from './CheckoutTypes'
 
-export const advanceStep: ActionCreator<ICheckoutAdvanceStepAction> = () => (
+export const checkoutOpen: ActionCreator<ICheckoutOpenAction> = () => (
     {
-        type: CheckoutActionTypes.ADVANCE_STEP
-    }
-)
-
-export const backStep: ActionCreator<ICheckoutBackStepAction> = () => (
-    {
-        type: CheckoutActionTypes.BACK_STEP
+        type: CheckoutActionTypes.CHECKOUT_OPEN
     }
 )
 

@@ -1,6 +1,6 @@
 export default interface IPaymentInfo {
     cardNumber: number;
-    cardAddress: string;
+    cardHolderName: string;
 	expirationMonth: number;
 	expirationYear: number;
 	secretCode: number;

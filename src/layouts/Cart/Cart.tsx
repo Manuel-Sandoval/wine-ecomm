@@ -9,20 +9,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import IProps from './ICartProps';
 import { IApplicationState } from '../../store/Store';
-import Checkout from '../../components/Checkout/Checkout';
-import IState from './ICartState';
-import { emptyInfo, populateSummary } from '../../store/checkout/CheckoutActions';
+import { populateSummary, checkoutOpen } from '../../store/checkout/CheckoutActions';
 import { ICheckoutSummary } from '../../store/checkout/CheckoutTypes';
+import CheckoutModal from '../../components/CheckoutModal/CheckoutModal';
 
-class Cart extends Component<IProps, IState> {
-
-    constructor(props: IProps) {
-        super(props);
-        this.state = {
-            modalOpen: false
-        }
-    }
-
+class Cart extends Component<IProps> {
 
     public render() {
 
@@ -61,38 +52,33 @@ class Cart extends Component<IProps, IState> {
                             <Typography><strong>Total:</strong></Typography>
                             <Typography>$ {total.toFixed(2)}</Typography>
                         </div>
-                        <Button variant='contained' onClick={this.openModalHandler}>
+                        <Button variant='contained' onClick={this.openModalHandler} disabled={this.props.products.length === 0}>
                             Proceed to checkout
                         </Button>
                     </Item>
                 </Container>
-                <Checkout modalOpen={this.state.modalOpen} cancel={this.closeModalHandler}/>
+                <CheckoutModal modalOpen={this.props.checkoutOpen} />
             </div>
         );
     }
 
     private openModalHandler = () => {
-        this.setState({modalOpen: true});
         this.props.populateSummary({items: this.props.products});
-        
-    } 
-
-    private closeModalHandler = () => {
-        this.setState({modalOpen: false});
-        this.props.emptyInfo();
+        this.props.openCheckout();
     } 
 
 }
 
 const mapStateToProps = (store: IApplicationState) => {
     return {
-        products: store.cart.products
+        products: store.cart.products,
+        checkoutOpen: store.checkout.checkoutOpen
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => (
     {
-        emptyInfo: () => dispatch(emptyInfo()),
+        openCheckout: () => dispatch(checkoutOpen()),
         populateSummary: (summaryInfo: ICheckoutSummary) => dispatch(populateSummary(summaryInfo))
     }
 )
